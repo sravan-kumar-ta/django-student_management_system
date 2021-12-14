@@ -16,14 +16,19 @@ def showLoginPage(request):
 
 
 def doLogin(request):
-    if request.method != 'POST':
+    if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
         user = EmailBackEnd.authenticate(request, username=request.POST.get("email"),
                                          password=request.POST.get("password"))
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect('/admin_home/')
+            if user.user_type == "1":
+                return HttpResponseRedirect('/admin_home')
+            elif user.user_type == "2":
+                return HttpResponse("Staff login" + str(user.user_type))
+            else:
+                return HttpResponse("Student login " + str(user.user_type))
         else:
             messages.error(request, "Invalid Login Details")
             return HttpResponseRedirect("/")
