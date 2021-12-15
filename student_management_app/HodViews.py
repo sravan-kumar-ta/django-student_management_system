@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from student_management_app.forms import AddStudentForm
-from student_management_app.models import CustomUser, Courses, Subjects
+from student_management_app.models import CustomUser, Courses, Subjects, Staffs, Students
 
 
 def admin_home(request):
@@ -117,3 +117,23 @@ def add_subject_save(request):
         except:
             messages.error(request, "Failed to Add Subject")
             return HttpResponseRedirect(reverse("add_subject"))
+
+
+def manage_staff(request):
+    staffs = Staffs.objects.all()
+    return render(request, "hod_template/manage_staff_template.html", {"staffs": staffs})
+
+
+def manage_student(request):
+    students = Students.objects.all()
+    return render(request, "hod_template/manage_student_template.html", {"students": students})
+
+
+def manage_course(request):
+    courses = Courses.objects.all()
+    return render(request, "hod_template/manage_course_template.html", {"courses": courses})
+
+
+def manage_subject(request):
+    subjects = Subjects.objects.all()
+    return render(request, "hod_template/manage_subject_template.html", {"subjects": subjects})
