@@ -40,7 +40,7 @@ class Subjects(models.Model):
 class Students(models.Model):
     admin = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     gender = models.CharField(max_length=255)
-    profile_pic = models.FileField()
+    profile_pic = models.ImageField(upload_to='students', default='students/avatar.jpg')
     address = models.TextField()
     course_id = models.ForeignKey(Courses, on_delete=models.DO_NOTHING)
     session_start_year = models.DateField()
