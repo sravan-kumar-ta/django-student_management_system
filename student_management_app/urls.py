@@ -1,13 +1,13 @@
 from django.urls import path
-from student_management_app import views, HodViews
+from student_management_app import views, HodViews, StudentViews, StaffViews
 
 urlpatterns = [
     path('demo/', views.demo, name="demo"),
-    # path('', views.showLoginPage, name='login'),
-    path('doLogin/', views.doLogin, name="doLogin"),
-    # path('admin_home/', HodViews.admin_home, name="admin_home"),
+    path('', views.showLoginPage, name='show_login'),
+    path('doLogin/', views.doLogin, name="do_login"),
+    path('admin_home/', HodViews.admin_home, name="admin_home"),
+    # path('', HodViews.admin_home, name="admin_home"),
 
-    path('', HodViews.admin_home, name="admin_home"),
     path('logout_user/', views.logout_user, name="logout"),
     path('add_staff/', HodViews.add_staff, name="add_staff"),
     path('add_staff_save/', HodViews.add_staff_save, name="add_staff_save"),
@@ -29,4 +29,7 @@ urlpatterns = [
     path('edit_subject_save/', HodViews.edit_subject_save, name="edit_subject_save"),
     path('edit_course/<str:course_id>/', HodViews.edit_course, name="edit_course"),
     path('edit_course_save/', HodViews.edit_course_save, name="edit_course_save"),
+
+    path('staff_home/', StaffViews.staff_home, name="staff_home"),
+    path('student_home/', StudentViews.student_home, name="student_home"),
 ]

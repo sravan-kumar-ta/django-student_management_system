@@ -1,5 +1,4 @@
 from django.contrib import messages
-from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -221,6 +220,7 @@ def edit_student_save(request):
 
             if request.FILES.get('profile_pic', False):
                 profile_pic = form.cleaned_data['profile_pic']
+                # profile_pic = request.FILES['profile_pic']
             else:
                 profile_pic = None
 
@@ -240,6 +240,7 @@ def edit_student_save(request):
                 course = Courses.objects.get(id=course_id)
                 student.course_id = course
                 if profile_pic is not None:
+                    student.profile_pic.delete()
                     student.profile_pic = profile_pic
                 student.save()
                 del request.session['student_id']
